@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Interactivo: Google I/O 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Soft Blue -->
+    <!-- Application Structure Plan: A tabbed dashboard interface was chosen to allow users to directly access the main topics (Gemini, AI Studio, Astra, Ethics) without linear scrolling. This non-linear navigation is more user-friendly for exploring distinct categories of information. Each tab reveals a dedicated section with interactive cards, diagrams, and conceptual charts to explain the report's content in a more engaging way than plain text. The user flow is designed to be self-directed, empowering them to focus on what they find most interesting. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Gemini 2.0 features -> Goal: Inform/Organize -> Viz: Interactive cards with icons -> Interaction: Click to show details -> Justification: Breaks down features into digestible, explorable chunks.
+        - Report Info: AI Studio Pro workflow -> Goal: Explain Process -> Viz: HTML/CSS flowchart diagram -> Interaction: Hover to highlight and show info -> Justification: Visually represents the development process, making it easier to understand.
+        - Report Info: Project Astra use cases -> Goal: Relate/Illustrate -> Viz: Conceptual Bar Chart (Chart.js) for 'memory growth' & icon-based layout -> Interaction: Click icons for details -> Justification: Uses a visual metaphor (chart) and icons to make an abstract concept tangible.
+        - Report Info: Ethics & Science initiatives -> Goal: Compare/Summarize -> Viz: Donut Chart (Chart.js) for 'effort distribution' & two-column layout -> Interaction: Toggles to reveal text -> Justification: Organizes distinct topics for comparison and provides a high-level visual summary with the chart.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-active {
+            border-color: #4299e1; /* blue-400 */
+            color: #2b6cb0; /* blue-700 */
+            background-color: #ebf8ff; /* blue-100 */
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #718096; /* gray-500 */
+        }
+        .content-active {
+            display: block;
+        }
+        .content-inactive {
+            display: none;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800">Google I/O 2025</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">La Nueva Frontera de la Inteligencia Artificial</p>
+        </header>
+
+        <nav class="mb-8 border-b border-gray-200">
+            <ul class="flex flex-wrap -mb-px justify-center text-sm font-medium text-center" id="tab-nav">
+                <li class="mr-2">
+                    <button class="nav-tab inline-block p-4 border-b-2 rounded-t-lg" data-tab="gemini">🚀 Gemini 2.0</button>
+                </li>
+                <li class="mr-2">
+                    <button class="nav-tab inline-block p-4 border-b-2 rounded-t-lg" data-tab="studio">🛠️ AI Studio Pro</button>
+                </li>
+                <li class="mr-2">
+                    <button class="nav-tab inline-block p-4 border-b-2 rounded-t-lg" data-tab="astra">👁️ Project Astra</button>
+                </li>
+                <li>
+                    <button class="nav-tab inline-block p-4 border-b-2 rounded-t-lg" data-tab="ethics">🌍 Ética y Ciencia</button>
+                </li>
+            </ul>
+        </nav>
+
+        <main id="tab-content">
+            <!-- Gemini 2.0 Content -->
+            <section id="gemini" class="tab-pane">
+                 <div class="text-center mb-8 p-4 bg-white rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-2">Gemini 2.0: El Ecosistema de IA Multimodal Evoluciona</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Google presentó la siguiente iteración de su modelo de IA más capaz, con mejoras significativas en razonamiento, personalización y eficiencia. Explore sus características principales a continuación haciendo clic en cada tarjeta.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="info-card bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer" data-target="gemini-detail-1">
+                        <h3 class="font-bold text-lg mb-2">Comprensión Avanzada</h3>
+                        <p class="text-sm text-gray-600">Procesa y conecta información de texto, código, imágenes, audio y video con mayor fluidez.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer" data-target="gemini-detail-2">
+                        <h3 class="font-bold text-lg mb-2">Personalización Profunda</h3>
+                        <p class="text-sm text-gray-600">Herramientas para afinar el modelo en tareas específicas con conjuntos de datos más pequeños.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer" data-target="gemini-detail-3">
+                        <h3 class="font-bold text-lg mb-2">Modelos "Gemini Edge"</h3>
+                        <p class="text-sm text-gray-600">Versiones optimizadas para operar con baja latencia y alta privacidad en dispositivos móviles.</p>
+                    </div>
+                    <div class="info-card bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer" data-target="gemini-detail-4">
+                        <h3 class="font-bold text-lg mb-2">Integración en Android 16</h3>
+                        <p class="text-sm text-gray-600">Será el núcleo de un asistente proactivo que anticipa las necesidades del usuario.</p>
+                    </div>
+                </div>
+                <div id="gemini-details-container" class="mt-6 p-6 bg-blue-50 border border-blue-200 rounded-xl hidden">
+                    <h4 id="gemini-detail-title" class="font-bold text-xl mb-2 text-blue-800"></h4>
+                    <p id="gemini-detail-text" class="text-gray-700"></p>
+                </div>
+            </section>
+
+            <!-- AI Studio Pro Content -->
+            <section id="studio" class="tab-pane">
+                 <div class="text-center mb-8 p-4 bg-white rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-green-600 mb-2">AI Studio Pro: Democratizando la Creación de Agentes</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Una plataforma de desarrollo low-code/no-code para simplificar la creación, el entrenamiento y el despliegue de agentes de IA personalizados. Pase el cursor sobre cada paso del flujo para ver los detalles.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 p-4">
+                    <div class="studio-step text-center p-4 border border-gray-200 rounded-lg bg-white w-full md:w-auto">
+                        <h3 class="font-semibold">Interfaz Visual</h3>
+                        <div class="studio-info hidden mt-2 text-sm bg-gray-100 p-2 rounded">Diseño de flujos de trabajo de IA y conexión de modelos.</div>
+                    </div>
+                    <div class="text-green-500 font-bold text-2xl transform md:-rotate-0 rotate-90">→</div>
+                    <div class="studio-step text-center p-4 border border-gray-200 rounded-lg bg-white w-full md:w-auto">
+                        <h3 class="font-semibold">Biblioteca de Habilidades</h3>
+                        <div class="studio-info hidden mt-2 text-sm bg-gray-100 p-2 rounded">Repositorio de componentes y habilidades de IA pre-construidas.</div>
+                    </div>
+                    <div class="text-green-500 font-bold text-2xl transform md:-rotate-0 rotate-90">→</div>
+                    <div class="studio-step text-center p-4 border border-gray-200 rounded-lg bg-white w-full md:w-auto">
+                        <h3 class="font-semibold">Simulación y Pruebas</h3>
+                        <div class="studio-info hidden mt-2 text-sm bg-gray-100 p-2 rounded">Entorno para probar el comportamiento de los agentes en diversos escenarios.</div>
+                    </div>
+                     <div class="text-green-500 font-bold text-2xl transform md:-rotate-0 rotate-90">→</div>
+                    <div class="studio-step text-center p-4 border border-gray-200 rounded-lg bg-white w-full md:w-auto">
+                        <h3 class="font-semibold">Despliegue</h3>
+                        <div class="studio-info hidden mt-2 text-sm bg-gray-100 p-2 rounded">Lanzamiento de agentes con un mercado conceptual para monetización.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Astra Content -->
+            <section id="astra" class="tab-pane">
+                 <div class="text-center mb-8 p-4 bg-white rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-purple-600 mb-2">Project Astra: Hacia la IA Contextual del Mundo Real</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">La visión de Google para un asistente universal que puede ver, oír y comprender el mundo que le rodea en tiempo real. El gráfico ilustra cómo la memoria contextual del asistente crece con el tiempo y el uso.</p>
+                </div>
+                 <div class="chart-container">
+                    <canvas id="astraChart"></canvas>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="text-gray-600 mb-4">Astra está diseñado para recordar interacciones y contextos previos, permitiendo una asistencia más relevante. Sus casos de uso incluyen:</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Ayuda en tareas domésticas</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Asistencia en entornos profesionales</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-4 py-2 rounded-full">Aprendizaje interactivo</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ethics & Science Content -->
+            <section id="ethics" class="tab-pane">
+                 <div class="text-center mb-8 p-4 bg-white rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-orange-600 mb-2">IA para un Futuro Mejor: Ética y Ciencia</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Google reafirmó su compromiso con el desarrollo responsable y el uso de la IA para resolver grandes desafíos. El gráfico muestra la distribución conceptual de sus esfuerzos en IA presentados en la conferencia.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                         <h3 class="font-bold text-xl mb-4 text-center">IA Responsable y Ética</h3>
+                         <ul class="space-y-3 text-gray-700">
+                             <li><strong>SynthID Mejorado:</strong> Actualizaciones para marcar y detectar contenido de IA (imágenes, video, audio) y combatir la desinformación.</li>
+                             <li><strong>Nuevas Métricas de Equidad:</strong> Herramientas para que los desarrolladores evalúen y mitiguen sesgos en sus modelos.</li>
+                             <li><strong>Privacidad Diferencial:</strong> Avances en técnicas para proteger la privacidad de los datos de entrenamiento.</li>
+                         </ul>
+                    </div>
+                     <div class="chart-container">
+                        <canvas id="ethicsChart"></canvas>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-sm lg:col-span-2">
+                         <h3 class="font-bold text-xl mb-4 text-center">IA en la Ciencia y Sostenibilidad</h3>
+                         <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-gray-800">AlphaFold 3 y Materiales</h4>
+                                <p class="text-sm text-gray-600">Logros en la predicción de interacciones moleculares y su aplicación en el descubrimiento de nuevos materiales para baterías y captura de carbono.</p>
+                            </div>
+                             <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-gray-800">"Green Light" Expandido</h4>
+                                <p class="text-sm text-gray-600">El proyecto para optimizar semáforos y reducir emisiones se expandirá a más ciudades con nuevas capacidades de adaptación en tiempo real.</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+             <p class="text-gray-600">Este informe interactivo resume los anuncios clave de la conferencia Google I/O 2025.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const panes = document.querySelectorAll('.tab-pane');
+            const geminiCards = document.querySelectorAll('.info-card');
+            const geminiDetailsContainer = document.getElementById('gemini-details-container');
+            const geminiDetailTitle = document.getElementById('gemini-detail-title');
+            const geminiDetailText = document.getElementById('gemini-detail-text');
+            const studioSteps = document.querySelectorAll('.studio-step');
+
+            const geminiDetails = {
+                "gemini-detail-1": {
+                    title: "Comprensión y Razonamiento Avanzados",
+                    text: "Gemini 2.0 demuestra una capacidad significativamente mejorada para comprender contextos complejos, realizar inferencias lógicas y mantener conversaciones más largas y coherentes. Se destacó su habilidad para procesar y conectar información proveniente de múltiples fuentes y formatos (texto, código, imágenes, audio y video) de forma simultánea y con mayor fluidez."
+                },
+                "gemini-detail-2": {
+                    title: "Personalización Profunda",
+                    text: "Se introdujeron herramientas que permiten a los desarrolladores y empresas afinar Gemini 2.0 para tareas específicas con mayor facilidad y eficiencia, utilizando conjuntos de datos más pequeños. Esto abre la puerta a asistentes virtuales híper-especializados y aplicaciones de IA a medida."
+                },
+                "gemini-detail-3": {
+                    title: 'Modelos Especializados "Gemini Edge"',
+                    text: "Se anunciaron versiones optimizadas de Gemini diseñadas para operar eficientemente en dispositivos móviles y de borde (edge computing), permitiendo capacidades de IA potentes directamente en smartphones, wearables y dispositivos IoT con menor latencia y mayor privacidad al procesar datos localmente."
+                },
+                "gemini-detail-4": {
+                    title: "Integración Nativa en Android 16",
+                    text: "Gemini 2.0 será el núcleo de las nuevas funciones de IA en Android 16, ofreciendo un asistente proactivo y contextual que anticipa las necesidades del usuario, resume información, genera contenido y automatiza tareas complejas directamente en el sistema operativo."
+                }
+            };
+
+            function activateTab(tabName) {
+                tabs.forEach(tab => {
+                    const isSelected = tab.getAttribute('data-tab') === tabName;
+                    tab.classList.toggle('tab-active', isSelected);
+                    tab.classList.toggle('tab-inactive', !isSelected);
+                });
+
+                panes.forEach(pane => {
+                    const isSelected = pane.id === tabName;
+                    pane.classList.toggle('content-active', isSelected);
+                    pane.classList.toggle('content-inactive', !isSelected);
+                });
+                
+                if (tabName === 'astra' && !window.astraChartInstance) {
+                    createAstraChart();
+                }
+                if (tabName === 'ethics' && !window.ethicsChartInstance) {
+                    createEthicsChart();
+                }
+            }
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    activateTab(tab.getAttribute('data-tab'));
+                });
+            });
+
+            geminiCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const detailKey = card.getAttribute('data-target');
+                    const details = geminiDetails[detailKey];
+                    if (details) {
+                        geminiDetailTitle.textContent = details.title;
+                        geminiDetailText.textContent = details.text;
+                        geminiDetailsContainer.classList.remove('hidden');
+                    }
+                });
+            });
+
+            studioSteps.forEach(step => {
+                const info = step.querySelector('.studio-info');
+                step.addEventListener('mouseenter', () => info.classList.remove('hidden'));
+                step.addEventListener('mouseleave', () => info.classList.add('hidden'));
+            });
+            
+            function createAstraChart() {
+                const ctx = document.getElementById('astraChart').getContext('2d');
+                window.astraChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Día 1', 'Semana 1', 'Mes 1', 'Mes 3'],
+                        datasets: [{
+                            label: 'Crecimiento de Memoria Contextual (%)',
+                            data: [20, 55, 78, 95],
+                            backgroundColor: 'rgba(147, 112, 219, 0.6)',
+                            borderColor: 'rgba(147, 112, 219, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: true, max: 100 } },
+                        plugins: { legend: { display: true } }
+                    }
+                });
+            }
+
+            function createEthicsChart() {
+                const ctx = document.getElementById('ethicsChart').getContext('2d');
+                window.ethicsChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Innovación de Producto (Gemini, Astra)', 'Herramientas Dev (AI Studio)', 'Ética y Seguridad', 'Ciencia y Sociedad'],
+                        datasets: [{
+                            label: 'Foco de Esfuerzos en IA',
+                            data: [40, 25, 20, 15],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.7)',
+                                'rgba(16, 185, 129, 0.7)',
+                                'rgba(249, 115, 22, 0.7)',
+                                'rgba(139, 92, 246, 0.7)'
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { 
+                                position: 'top',
+                                labels: {
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            activateTab('gemini');
+        });
+    </script>
+</body>
+</html>
